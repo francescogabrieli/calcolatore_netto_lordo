@@ -1,0 +1,135 @@
+{
+  "taxYear": 2026,
+
+  "irpef": {
+    "brackets": [
+      { "upTo": 28000, "rate": 0.23 },
+      { "upTo": 50000, "rate": 0.33 },
+      { "upTo": null,  "rate": 0.43 }
+    ],
+    "source": "art. 11 TUIR, come modificato da L. 199/2025 art. 1 co. 3 (seconda aliquota 35% -> 33% dal 01/01/2026)",
+    "sourceUrl": "https://fiscomania.com/aliquote-irpef/",
+    "verifiedAt": "2026-08-30",
+    "confidence": "high"
+  },
+
+  "socialSecurity": {
+    "employeeRate": 0.0919,
+    "apprenticeshipRate": 0.0584,
+    "additionalRate": 0.01,
+    "additionalRateThreshold": 52190,
+    "contributionCap": 120607,
+    "employerRate": 0.2381,
+    "source": "aliquota IVS 9,19%; L. 438/1992 art. 3-ter (contributo aggiuntivo 1%); L. 335/1995 art. 2 co. 18 (massimale)",
+    "sourceUrl": "https://fiscomania.com/calcolo-contributi-versati/",
+    "verifiedAt": "2026-08-30",
+    "confidence": "medium",
+    "note": "Soglia prima fascia e massimale da riverificare sulla circolare INPS annuale (docs/01 §7 item 3)."
+  },
+
+  "employeeDeduction": {
+    "bands": [
+      { "upTo": 15000, "type": "flat",    "amount": 1955 },
+      { "upTo": 28000, "type": "decreasing", "base": 1910, "extra": 1190, "ceiling": 28000, "span": 13000 },
+      { "upTo": 50000, "type": "decreasing", "base": 0,    "extra": 1910, "ceiling": 50000, "span": 22000 },
+      { "upTo": null,  "type": "none" }
+    ],
+    "minimumPermanent": 690,
+    "minimumFixedTerm": 1380,
+    "surcharge": { "amount": 65, "from": 25000, "to": 35000, "proRated": false },
+    "source": "art. 13 co. 1 e 1-bis TUIR; D.Lgs. 216/2023; Circ. AdE 4/2022",
+    "sourceUrl": "https://fiscomania.com/detrazioni-per-redditi-da-lavoro-dipendente/",
+    "verifiedAt": "2026-08-30",
+    "confidence": "high",
+    "note": "Alcune fonti secondarie indicano 8.500 come soglia della prima fascia, confondendola con la no-tax area del cuneo (docs/01 §7 item 1)."
+  },
+
+  "cuneo": {
+    "exemption": {
+      "maxIncome": 20000,
+      "bands": [
+        { "upTo": 8500,  "rate": 0.071 },
+        { "upTo": 15000, "rate": 0.053 },
+        { "upTo": 20000, "rate": 0.048 }
+      ]
+    },
+    "deduction": { "from": 20000, "flatUpTo": 32000, "amount": 1000, "zeroAt": 40000 },
+    "source": "L. 207/2024 (riduzione cuneo fiscale), soglia superiore elevata a 40.000 per il 2026",
+    "sourceUrl": "https://www.pmi.it/economia/lavoro/484539/manovra-2026-lavoratori-bonus-novita-fisco.html",
+    "verifiedAt": "2026-08-30",
+    "confidence": "medium",
+    "note": "Formula di decalage 32.000->40.000 da confermare sul testo di legge (docs/01 §7 item 2)."
+  },
+
+  "supplementaryTreatment": {
+    "amount": 1200,
+    "incomeLimit": 15000,
+    "uncertainBandTo": 28000,
+    "source": "D.L. 3/2020 art. 1",
+    "verifiedAt": "2026-08-30",
+    "confidence": "high",
+    "note": "Fascia 15.000-28.000 trattata come non spettante per assunzione A5."
+  },
+
+  "familyDeductions": {
+    "spouse": {
+      "band1": { "upTo": 15000, "base": 800, "subtract": 110, "over": 15000 },
+      "band2": { "upTo": 40000, "amount": 690 },
+      "band3": { "upTo": 80000, "base": 690, "ceiling": 80000, "span": 40000 },
+      "increments": [
+        { "from": 29000, "to": 29200, "amount": 10 },
+        { "from": 29200, "to": 34700, "amount": 20 },
+        { "from": 34700, "to": 35000, "amount": 30 },
+        { "from": 35000, "to": 35100, "amount": 20 },
+        { "from": 35100, "to": 35200, "amount": 10 }
+      ]
+    },
+    "child21to30": { "amount": 950, "ceiling": 95000, "ceilingIncrementPerExtraChild": 15000 },
+    "otherDependent": { "amount": 750, "ceiling": 80000 },
+    "source": "art. 12 TUIR (figli under 21 esclusi: dal 03/2022 Assegno Unico INPS)",
+    "verifiedAt": "2026-08-30",
+    "confidence": "low",
+    "note": "Formule da confermare sul testo vigente prima del rilascio (docs/04 §5.2)."
+  },
+
+  "localSurcharges": {
+    "regional": {
+      "lombardia": {
+        "label": "Lombardia",
+        "mode": "progressive",
+        "brackets": [
+          { "upTo": 15000, "rate": 0.0123 },
+          { "upTo": 28000, "rate": 0.0158 },
+          { "upTo": 50000, "rate": 0.0172 },
+          { "upTo": null,  "rate": 0.0173 }
+        ],
+        "source": "legge regionale Lombardia - aliquote a scaglioni 1,23%-1,73%",
+        "sourceUrl": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali/red-addizionale-regionale-irpef",
+        "verifiedAt": "2026-08-30",
+        "confidence": "low",
+        "note": "Soglie e modalita (progressiva vs flat_by_bracket) da confermare su fonte regionale (docs/01 §7 item 4)."
+      }
+    },
+    "municipal": {
+      "milano": {
+        "label": "Milano",
+        "rate": 0.008,
+        "exemptionThreshold": 23000,
+        "exemptionType": "cliff",
+        "source": "delibera Comune di Milano - aliquota 0,80%, esenzione fino a 23.000 EUR",
+        "sourceUrl": "https://www.comune.milano.it/en/argomenti/tributi/addizionale-comunale-irpef",
+        "verifiedAt": "2026-08-30",
+        "confidence": "medium",
+        "note": "Da confermare su delibera comunale vigente (docs/01 §7 item 5)."
+      }
+    }
+  },
+
+  "informational": {
+    "tfrDivisor": 13.5,
+    "tfrGuaranteeFundRate": 0.005,
+    "source": "art. 2120 c.c. (quota annua RAL/13,5); contributo Fondo di Garanzia 0,50%",
+    "verifiedAt": "2026-08-30",
+    "confidence": "medium"
+  }
+}

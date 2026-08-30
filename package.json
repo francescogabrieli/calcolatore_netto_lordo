@@ -1,0 +1,10 @@
+{
+  "name": "calcolatore-netto-lordo",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": ["packages/*", "apps/*"],
+  "scripts": {
+    "test": "npm run test --workspace=@cnl/core",
+    "typecheck": "npm run typecheck --workspace=@cnl/core"
+  }
+}
