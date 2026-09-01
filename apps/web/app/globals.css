@@ -162,6 +162,13 @@
   border-color: var(--text);
 }
 
+.pill-active:hover {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+  opacity: 0.88;
+}
+
 /* Reveal: ingresso in scena al primo passaggio in viewport. */
 .reveal {
   opacity: 0;
