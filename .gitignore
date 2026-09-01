@@ -10,3 +10,4 @@ coverage/
 apps/web/playwright-report/
 apps/web/test-results/
 apps/web/blob-report/
+.vercel
