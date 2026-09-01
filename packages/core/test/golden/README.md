@@ -27,10 +27,10 @@ loro numeri.
 
 I loro contributi sono esattamente `RAL × 9,19%` a qualsiasi livello di reddito:
 
-| RAL | loro INPS | RAL × 9,19% | massimale/1% applicati? |
-|---|---|---|---|
-| 55.000 | 5.055 | 5.054,50 | no (mancano ~28 € di contributo aggiuntivo) |
-| 130.000 | 11.947 | 11.947,00 | no (il massimale ≈ 120.607 € è ignorato) |
+| RAL     | loro INPS | RAL × 9,19% | massimale/1% applicati?                     |
+| ------- | --------- | ----------- | ------------------------------------------- |
+| 55.000  | 5.055     | 5.054,50    | no (mancano ~28 € di contributo aggiuntivo) |
+| 130.000 | 11.947    | 11.947,00   | no (il massimale ≈ 120.607 € è ignorato)    |
 
 → Sopra la prima fascia di retribuzione pensionabile il **nostro** netto sarà leggermente più
 basso (trattenuta aggiuntiva dell'1%); sopra il massimale sarà più alto. Riteniamo il nostro
@@ -63,16 +63,16 @@ esenzione dei 23.000 € di imponibile, dove noi riproduciamo uno scalino che lo
 
 **D4 — Il riferimento concede 1.200 € anche dove la norma non lo prevede**
 
-Il loro form ha un toggle *"Includi bonus 100€"*, attivo di default. Confrontando le due serie
+Il loro form ha un toggle _"Includi bonus 100€"_, attivo di default. Confrontando le due serie
 (`withBonus` / `noBonus`) il bonus vale esattamente 1.200 € e viene concesso fino a ~28.000 € di
 reddito complessivo, **senza verificare la condizione di capienza** prevista dal D.L. 3/2020.
 
 Verifica su RAL 30.000 (reddito complessivo 27.243):
 
-| | detrazioni art. 13 | IRPEF lorda | trattamento integrativo dovuto? |
-|---|---|---|---|
-| norma | 2.044 | 6.266 | **no**: le detrazioni non superano l'IRPEF lorda |
-| riferimento (default) | — | — | sì, 1.200 € |
+|                       | detrazioni art. 13 | IRPEF lorda | trattamento integrativo dovuto?                  |
+| --------------------- | ------------------ | ----------- | ------------------------------------------------ |
+| norma                 | 2.044              | 6.266       | **no**: le detrazioni non superano l'IRPEF lorda |
+| riferimento (default) | —                  | —           | sì, 1.200 €                                      |
 
 → Confrontiamo la serie **`noBonus`**, che isola questa divergenza. Su quella serie le nostre
 **detrazioni coincidono all'euro** con le loro a 30.000, 35.000, 40.000 e 50.000 €: è la
@@ -86,7 +86,7 @@ sull'imposta); noi lo trattiamo come **riduzione della base imponibile** (sconto
 all'aliquota marginale). A RAL 15.000 le loro `detrazioni` valgono 2.677 = 1.955 (art. 13) +
 722, dove 722 = 13.622 × 5,3%: la percentuale del cuneo, applicata all'imposta anziché al reddito.
 
-La norma parla di *somma che non concorre alla formazione del reddito*: la nostra lettura è
+La norma parla di _somma che non concorre alla formazione del reddito_: la nostra lettura è
 quella corretta. La differenza vale ~500 € di netto in quella fascia, a loro favore.
 
 → Per i casi in cui la somma esente si attiva il golden test usa una tolleranza del 6% anziché
@@ -94,12 +94,12 @@ del 3%, motivata qui. **Non inseguiamo i loro numeri.**
 
 ## Sintesi: dove i numeri coincidono
 
-| Grandezza | Esito |
-|---|---|
-| Contributi INPS (sotto la 1ª fascia) | ✅ coincidenza esatta |
-| Reddito imponibile | ✅ coincidenza esatta |
-| Detrazioni (RAL 30k–50k, serie noBonus) | ✅ coincidenza all'euro |
-| Netto annuo | entro il 3% (6% nella fascia della somma esente), con le cause identificate una per una |
+| Grandezza                               | Esito                                                                                   |
+| --------------------------------------- | --------------------------------------------------------------------------------------- |
+| Contributi INPS (sotto la 1ª fascia)    | ✅ coincidenza esatta                                                                   |
+| Reddito imponibile                      | ✅ coincidenza esatta                                                                   |
+| Detrazioni (RAL 30k–50k, serie noBonus) | ✅ coincidenza all'euro                                                                 |
+| Netto annuo                             | entro il 3% (6% nella fascia della somma esente), con le cause identificate una per una |
 
 ## Fonte 2 — da raccogliere
 

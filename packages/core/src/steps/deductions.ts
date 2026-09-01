@@ -25,8 +25,7 @@ export function calculateEmployeeDeduction(
 
   if (band.type === 'flat') {
     const proRated = (band.amount ?? 0) * daysRatio;
-    const minimum =
-      input.contractType === 'fixed_term' ? ed.minimumFixedTerm : ed.minimumPermanent;
+    const minimum = input.contractType === 'fixed_term' ? ed.minimumFixedTerm : ed.minimumPermanent;
     // il minimo garantito prevale sul ragguaglio ai giorni
     deduction = Math.max(proRated, minimum);
   } else {
@@ -100,8 +99,12 @@ export function calculateFamilyDeductions(
 
   if (otherDependents > 0) {
     const o = fd.otherDependent;
-    const amount = Math.max(0, ((o.amount * (o.ceiling - totalIncome)) / o.ceiling) * otherDependents);
-    if (amount > 0) breakdown.push({ label: `Altri familiari a carico (${otherDependents})`, amount });
+    const amount = Math.max(
+      0,
+      ((o.amount * (o.ceiling - totalIncome)) / o.ceiling) * otherDependents,
+    );
+    if (amount > 0)
+      breakdown.push({ label: `Altri familiari a carico (${otherDependents})`, amount });
   }
 
   return { total: breakdown.reduce((sum, b) => sum + b.amount, 0), breakdown };

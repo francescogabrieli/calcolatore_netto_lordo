@@ -5,3 +5,8 @@ coverage/
 .DS_Store
 *.log
 .env*.local
+
+# Playwright
+apps/web/playwright-report/
+apps/web/test-results/
+apps/web/blob-report/

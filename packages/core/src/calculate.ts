@@ -6,7 +6,6 @@ import {
   type CalculationInputRaw,
   type CalculationResult,
   type CalculationStep,
-  type TaxParams,
   type Warning,
 } from './schema.js';
 import { calculateContributions } from './steps/contributions.js';
@@ -162,7 +161,11 @@ export function calculateNet(
         amount: employeeDeduction,
         formula: `art. 13 TUIR, ragguagliata a ${input.employmentDays} giorni`,
       },
-      ...family.breakdown.map((b) => ({ label: b.label, amount: b.amount, formula: 'art. 12 TUIR' })),
+      ...family.breakdown.map((b) => ({
+        label: b.label,
+        amount: b.amount,
+        formula: 'art. 12 TUIR',
+      })),
       ...(cuneoDeduction > 0
         ? [
             {
@@ -264,7 +267,10 @@ export function calculateNet(
       amount: supplementary.amount,
       sign: 'positive',
       base: totalIncome,
-      formula: supplementary.amount > 0 ? `${eur(params.supplementaryTreatment.amount)} € annui` : 'Non applicato',
+      formula:
+        supplementary.amount > 0
+          ? `${eur(params.supplementaryTreatment.amount)} € annui`
+          : 'Non applicato',
       legalRef: params.supplementaryTreatment.source,
     });
   }
@@ -317,7 +323,8 @@ export function calculateNet(
     }
   }
 
-  const tfr = gross / params.informational.tfrDivisor - gross * params.informational.tfrGuaranteeFundRate;
+  const tfr =
+    gross / params.informational.tfrDivisor - gross * params.informational.tfrGuaranteeFundRate;
   const employerCost = gross * (1 + params.socialSecurity.employerRate) + tfr;
 
   return {
@@ -330,8 +337,7 @@ export function calculateNet(
       totalTax: round2(totalTax),
       netAnnual: round2(netAnnual),
       netMonthly: round2(netMonthly),
-      effectiveRate:
-        (contributions.total + totalTax - supplementary.amount) / gross,
+      effectiveRate: (contributions.total + totalTax - supplementary.amount) / gross,
       marginalRate: computeMarginalRate ? calculateMarginalRate(input, taxYear, netAnnual) : 0,
     },
     informational: { tfr: round2(tfr), employerCost: round2(employerCost) },

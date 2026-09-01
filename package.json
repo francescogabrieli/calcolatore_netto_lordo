@@ -2,9 +2,23 @@
   "name": "calcolatore-netto-lordo",
   "private": true,
   "version": "0.1.0",
-  "workspaces": ["packages/*", "apps/*"],
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "scripts": {
     "test": "npm run test --workspace=@cnl/core",
-    "typecheck": "npm run typecheck --workspace=@cnl/core"
+    "test:e2e": "npm run test:e2e --workspace=@cnl/web",
+    "typecheck": "npm run typecheck --workspace=@cnl/core && npm run typecheck --workspace=@cnl/web",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "build": "npm run build --workspace=@cnl/web"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.3.3"
   }
 }

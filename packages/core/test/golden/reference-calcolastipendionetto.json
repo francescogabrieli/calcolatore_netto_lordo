@@ -3,9 +3,13 @@
     "source": "https://www.calcolastipendionetto.it/ (endpoint POST /calcola)",
     "collectedAt": "2026-08-30",
     "profile": {
-      "regione": "lombardia", "mensilita": 14, "giorni_dipendente": 365,
-      "tempo_indeterminato": true, "apprendistato": false,
-      "familiari_a_carico": 0, "welfare": 0
+      "regione": "lombardia",
+      "mensilita": 14,
+      "giorni_dipendente": 365,
+      "tempo_indeterminato": true,
+      "apprendistato": false,
+      "familiari_a_carico": 0,
+      "welfare": 0
     },
     "series": {
       "withBonus": "parametro bonus_fiscale=1 (default del sito)",
@@ -14,16 +18,126 @@
     "note": "Riferimento per controllo incrociato, NON fonte di verita'. La fonte e' la normativa (docs/01)."
   },
   "cases": [
-    { "ral": 15000,  "noBonus": { "netto": 12970.50, "imponibile": 13622, "inps": 1379,  "irpef_lorda": 3328,  "detrazioni": 2677 }, "withBonus": { "netto": 13621.50 } },
-    { "ral": 20000,  "noBonus": { "netto": 17396.00, "imponibile": 18162, "inps": 1838,  "irpef_lorda": 4448,  "detrazioni": 3682 }, "withBonus": { "netto": 18162.00 } },
-    { "ral": 23500,  "noBonus": { "netto": 19624.35, "imponibile": 21340, "inps": 2160,  "irpef_lorda": 5236,  "detrazioni": 3520 }, "withBonus": { "netto": 20824.35 } },
-    { "ral": 28000,  "noBonus": { "netto": 22389.80, "imponibile": 25427, "inps": 2573,  "irpef_lorda": 6248,  "detrazioni": 3211 }, "withBonus": { "netto": 23589.80 } },
-    { "ral": 30000,  "noBonus": { "netto": 23589.00, "imponibile": 27243, "inps": 2757,  "irpef_lorda": 6698,  "detrazioni": 3044 }, "withBonus": { "netto": 24789.00 } },
-    { "ral": 35000,  "noBonus": { "netto": 26223.50, "imponibile": 31784, "inps": 3217,  "irpef_lorda": 8207,  "detrazioni": 2647 }, "withBonus": { "netto": 26223.50 } },
-    { "ral": 40000,  "noBonus": { "netto": 28178.00, "imponibile": 36324, "inps": 3676,  "irpef_lorda": 9793,  "detrazioni": 1647 }, "withBonus": { "netto": 28178.00 } },
-    { "ral": 50000,  "noBonus": { "netto": 32840.00, "imponibile": 45405, "inps": 4595,  "irpef_lorda": 12964, "detrazioni": 399 },  "withBonus": { "netto": 32840.00 } },
-    { "ral": 55000,  "noBonus": { "netto": 35401.50, "imponibile": 49946, "inps": 5055,  "irpef_lorda": 14549, "detrazioni": 5 },    "withBonus": { "netto": 35401.50 } },
-    { "ral": 80000,  "noBonus": { "netto": 47904.00, "imponibile": 72648, "inps": 7352,  "irpef_lorda": 24744, "detrazioni": 0 },    "withBonus": { "netto": 47904.00 } },
-    { "ral": 130000, "noBonus": { "netto": 72908.00, "imponibile": 118053,"inps": 11947, "irpef_lorda": 45145, "detrazioni": 0 },    "withBonus": { "netto": 72908.00 } }
+    {
+      "ral": 15000,
+      "noBonus": {
+        "netto": 12970.5,
+        "imponibile": 13622,
+        "inps": 1379,
+        "irpef_lorda": 3328,
+        "detrazioni": 2677
+      },
+      "withBonus": { "netto": 13621.5 }
+    },
+    {
+      "ral": 20000,
+      "noBonus": {
+        "netto": 17396.0,
+        "imponibile": 18162,
+        "inps": 1838,
+        "irpef_lorda": 4448,
+        "detrazioni": 3682
+      },
+      "withBonus": { "netto": 18162.0 }
+    },
+    {
+      "ral": 23500,
+      "noBonus": {
+        "netto": 19624.35,
+        "imponibile": 21340,
+        "inps": 2160,
+        "irpef_lorda": 5236,
+        "detrazioni": 3520
+      },
+      "withBonus": { "netto": 20824.35 }
+    },
+    {
+      "ral": 28000,
+      "noBonus": {
+        "netto": 22389.8,
+        "imponibile": 25427,
+        "inps": 2573,
+        "irpef_lorda": 6248,
+        "detrazioni": 3211
+      },
+      "withBonus": { "netto": 23589.8 }
+    },
+    {
+      "ral": 30000,
+      "noBonus": {
+        "netto": 23589.0,
+        "imponibile": 27243,
+        "inps": 2757,
+        "irpef_lorda": 6698,
+        "detrazioni": 3044
+      },
+      "withBonus": { "netto": 24789.0 }
+    },
+    {
+      "ral": 35000,
+      "noBonus": {
+        "netto": 26223.5,
+        "imponibile": 31784,
+        "inps": 3217,
+        "irpef_lorda": 8207,
+        "detrazioni": 2647
+      },
+      "withBonus": { "netto": 26223.5 }
+    },
+    {
+      "ral": 40000,
+      "noBonus": {
+        "netto": 28178.0,
+        "imponibile": 36324,
+        "inps": 3676,
+        "irpef_lorda": 9793,
+        "detrazioni": 1647
+      },
+      "withBonus": { "netto": 28178.0 }
+    },
+    {
+      "ral": 50000,
+      "noBonus": {
+        "netto": 32840.0,
+        "imponibile": 45405,
+        "inps": 4595,
+        "irpef_lorda": 12964,
+        "detrazioni": 399
+      },
+      "withBonus": { "netto": 32840.0 }
+    },
+    {
+      "ral": 55000,
+      "noBonus": {
+        "netto": 35401.5,
+        "imponibile": 49946,
+        "inps": 5055,
+        "irpef_lorda": 14549,
+        "detrazioni": 5
+      },
+      "withBonus": { "netto": 35401.5 }
+    },
+    {
+      "ral": 80000,
+      "noBonus": {
+        "netto": 47904.0,
+        "imponibile": 72648,
+        "inps": 7352,
+        "irpef_lorda": 24744,
+        "detrazioni": 0
+      },
+      "withBonus": { "netto": 47904.0 }
+    },
+    {
+      "ral": 130000,
+      "noBonus": {
+        "netto": 72908.0,
+        "imponibile": 118053,
+        "inps": 11947,
+        "irpef_lorda": 45145,
+        "detrazioni": 0
+      },
+      "withBonus": { "netto": 72908.0 }
+    }
   ]
 }

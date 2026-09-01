@@ -1,0 +1,12 @@
+{
+  "root": true,
+  "settings": { "next": { "rootDir": "apps/web" } },
+  "extends": ["next/core-web-vitals", "next/typescript", "prettier"],
+  "ignorePatterns": [
+    "**/.next/**",
+    "**/dist/**",
+    "**/coverage/**",
+    "**/node_modules/**",
+    "**/next-env.d.ts"
+  ]
+}

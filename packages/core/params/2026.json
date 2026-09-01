@@ -5,7 +5,7 @@
     "brackets": [
       { "upTo": 28000, "rate": 0.23 },
       { "upTo": 50000, "rate": 0.33 },
-      { "upTo": null,  "rate": 0.43 }
+      { "upTo": null, "rate": 0.43 }
     ],
     "source": "art. 11 TUIR, come modificato da L. 199/2025 art. 1 co. 3 (seconda aliquota 35% -> 33% dal 01/01/2026)",
     "sourceUrl": "https://fiscomania.com/aliquote-irpef/",
@@ -29,10 +29,24 @@
 
   "employeeDeduction": {
     "bands": [
-      { "upTo": 15000, "type": "flat",    "amount": 1955 },
-      { "upTo": 28000, "type": "decreasing", "base": 1910, "extra": 1190, "ceiling": 28000, "span": 13000 },
-      { "upTo": 50000, "type": "decreasing", "base": 0,    "extra": 1910, "ceiling": 50000, "span": 22000 },
-      { "upTo": null,  "type": "none" }
+      { "upTo": 15000, "type": "flat", "amount": 1955 },
+      {
+        "upTo": 28000,
+        "type": "decreasing",
+        "base": 1910,
+        "extra": 1190,
+        "ceiling": 28000,
+        "span": 13000
+      },
+      {
+        "upTo": 50000,
+        "type": "decreasing",
+        "base": 0,
+        "extra": 1910,
+        "ceiling": 50000,
+        "span": 22000
+      },
+      { "upTo": null, "type": "none" }
     ],
     "minimumPermanent": 690,
     "minimumFixedTerm": 1380,
@@ -48,7 +62,7 @@
     "exemption": {
       "maxIncome": 20000,
       "bands": [
-        { "upTo": 8500,  "rate": 0.071 },
+        { "upTo": 8500, "rate": 0.071 },
         { "upTo": 15000, "rate": 0.053 },
         { "upTo": 20000, "rate": 0.048 }
       ]
@@ -101,7 +115,7 @@
           { "upTo": 15000, "rate": 0.0123 },
           { "upTo": 28000, "rate": 0.0158 },
           { "upTo": 50000, "rate": 0.0172 },
-          { "upTo": null,  "rate": 0.0173 }
+          { "upTo": null, "rate": 0.0173 }
         ],
         "source": "legge regionale Lombardia - aliquote a scaglioni 1,23%-1,73%",
         "sourceUrl": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali/red-addizionale-regionale-irpef",

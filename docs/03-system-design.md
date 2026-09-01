@@ -6,15 +6,17 @@
 "Calcola" e vede netto annuo, netto mensile e **il dettaglio completo di ogni trattenuta**.
 
 **Vincoli di progetto**
-| Vincolo | Origine |
-|---|---|
-| Deve essere raggiungibile via link pubblico, senza allegati | Traccia |
-| Deve essere evidente che le logiche sono controllate da noi | Traccia (⚠️ "non è un test su Lovable") |
-| Nessun costo: niente dominio a pagamento, niente servizi a pagamento | Vincolo nostro |
-| UI curata | Vincolo nostro |
-| Tempo limitato | Vincolo nostro |
+
+| Vincolo                                                              | Origine                                 |
+| -------------------------------------------------------------------- | --------------------------------------- |
+| Deve essere raggiungibile via link pubblico, senza allegati          | Traccia                                 |
+| Deve essere evidente che le logiche sono controllate da noi          | Traccia (⚠️ "non è un test su Lovable") |
+| Nessun costo: niente dominio a pagamento, niente servizi a pagamento | Vincolo nostro                          |
+| UI curata                                                            | Vincolo nostro                          |
+| Tempo limitato                                                       | Vincolo nostro                          |
 
 **Requisiti non funzionali che guidano il design**
+
 1. **Auditabilità** — dato un output, deve essere possibile risalire alla formula e alla norma.
 2. **Aggiornabilità annuale** — cambiare anno d'imposta non deve richiedere di toccare il motore.
 3. **Testabilità** — il calcolo deve essere verificabile senza avviare un browser.
@@ -66,6 +68,7 @@ calculateNet(input: CalculationInput, params: TaxParams): CalculationResult
 
 Nessun I/O, nessuna data di sistema, nessun `Math.random`, nessuna dipendenza.
 Stessi input ⇒ stesso output, sempre. Questo rende il motore:
+
 - testabile con Vitest senza mock;
 - eseguibile identicamente sul client e sul server;
 - verificabile riga per riga in code review.
@@ -84,11 +87,11 @@ Stessi input ⇒ stesso output, sempre. Questo rende il motore:
     "brackets": [
       { "upTo": 28000, "rate": 0.23 },
       { "upTo": 50000, "rate": 0.33 },
-      { "upTo": null,  "rate": 0.43 }
+      { "upTo": null, "rate": 0.43 },
     ],
     "source": "L. 199/2025 art. 1 co. 3",
     "sourceUrl": "https://fiscomania.com/aliquote-irpef/",
-    "verifiedAt": "2026-08-30"
+    "verifiedAt": "2026-08-30",
   },
   "socialSecurity": {
     "employeeRate": 0.0919,
@@ -97,28 +100,29 @@ Stessi input ⇒ stesso output, sempre. Questo rende il motore:
     "contributionCap": 120607,
     "source": "L. 335/1995 art. 2 co. 18; L. 438/1992 art. 3-ter",
     "verifiedAt": "2026-08-30",
-    "confidence": "medium"
+    "confidence": "medium",
   },
   "localSurcharges": {
     "regional": {
       "lombardia": {
-        "mode": "progressive",          // oppure "flat_by_bracket"
-        "brackets": [ /* … */ ],
-        "confidence": "low"
-      }
+        "mode": "progressive", // oppure "flat_by_bracket"
+        "brackets": [/* … */],
+        "confidence": "low",
+      },
     },
     "municipal": {
       "milano": {
         "rate": 0.008,
         "exemptionThreshold": 23000,
-        "exemptionType": "cliff"        // superata la soglia si paga su tutto
-      }
-    }
-  }
+        "exemptionType": "cliff", // superata la soglia si paga su tutto
+      },
+    },
+  },
 }
 ```
 
 **Conseguenze pratiche:**
+
 - aggiornare al 2027 = aggiungere `2027.json`, non toccare il motore;
 - ogni numero porta con sé `source`, `verifiedAt` e `confidence`;
 - il campo `confidence` viene **mostrato in UI**: se un parametro è dichiarato incerto,
@@ -170,11 +174,11 @@ letteralmente il calcolo eseguito, e non una spiegazione scritta a parte che pu�
 **GitHub Pages serve solo file statici**: non esegue Node, quindi **una API route Next.js non
 funziona**. Le opzioni reali sono:
 
-| Opzione | URL | API route | Note |
-|---|---|---|---|
-| **A. GitHub Pages** + Next.js `output: 'export'` | `username.github.io/calcolatore-netto-lordo` | ❌ non disponibile | Il motore gira nel browser (`LocalClient`). Perfettamente adeguato: il calcolo è deterministico e non serve un server |
-| **B. Vercel free tier** | `nome-progetto.vercel.app` | ✅ funzionante | Anch'esso **gratuito e senza dominio da comprare**. Deploy automatico da GitHub |
-| **C. Entrambi** | Pages come mirror statico, Vercel come deploy principale | ✅ | Costo marginale ~zero grazie al pattern port/adapter |
+| Opzione                                          | URL                                                      | API route          | Note                                                                                                                  |
+| ------------------------------------------------ | -------------------------------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| **A. GitHub Pages** + Next.js `output: 'export'` | `username.github.io/calcolatore-netto-lordo`             | ❌ non disponibile | Il motore gira nel browser (`LocalClient`). Perfettamente adeguato: il calcolo è deterministico e non serve un server |
+| **B. Vercel free tier**                          | `nome-progetto.vercel.app`                               | ✅ funzionante     | Anch'esso **gratuito e senza dominio da comprare**. Deploy automatico da GitHub                                       |
+| **C. Entrambi**                                  | Pages come mirror statico, Vercel come deploy principale | ✅                 | Costo marginale ~zero grazie al pattern port/adapter                                                                  |
 
 **Il design regge in tutti e tre i casi** grazie al `CalculationClient`: il motore è lo stesso,
 cambia solo l'adapter (`LocalClient` in-process vs `HttpClient` verso `/api/calculate`).
@@ -224,19 +228,19 @@ UI un fatto strutturale, non una convenzione. `packages/core` non ha React nel `
 
 ## 7. Stack tecnologico e motivazioni
 
-| Livello | Scelta | Perché |
-|---|---|---|
-| Linguaggio | **TypeScript** (strict) | Il dominio è pieno di unità omogenee (euro, percentuali, soglie): i tipi prevengono errori reali. Branded types per `Euro` e `Rate` |
-| Dominio | TS puro, zero dipendenze | Portabile, testabile, longevo |
-| Validazione | **Zod** | Valida sia gli input utente sia il file parametri, con un'unica fonte di verità dei tipi |
-| Frontend | **Next.js (App Router) + React** | Static export per Pages *o* runtime per Vercel, senza cambiare codice |
-| Styling | **Tailwind CSS** | Velocità e coerenza |
-| Componenti | **shadcn/ui** | Componenti copiati nel repo (non una dipendenza opaca), accessibili, personalizzabili. Preferito a daisyUI perché il controllo del markup conta quando bisogna rendere leggibile una tabella densa |
-| Grafici | **SVG scritto a mano** (nessuna libreria) | Il waterfall sono ~10 rettangoli: una libreria di charting costerebbe peso e controllo senza risolvere nulla. Vedi [06](06-ux-design.md) §5 |
-| Form | **react-hook-form** + resolver Zod | Stesso schema per form, API e motore |
-| Tema | **next-themes** | Dark mode senza flash in SSR |
-| Test | **Vitest** + **fast-check** + **Playwright** | Unit, property-based e smoke UI |
-| CI | **GitHub Actions** | Type-check + test + build a ogni push. Un badge verde nel README è una dichiarazione di serietà |
+| Livello     | Scelta                                       | Perché                                                                                                                                                                                             |
+| ----------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Linguaggio  | **TypeScript** (strict)                      | Il dominio è pieno di unità omogenee (euro, percentuali, soglie): i tipi prevengono errori reali. Branded types per `Euro` e `Rate`                                                                |
+| Dominio     | TS puro, zero dipendenze                     | Portabile, testabile, longevo                                                                                                                                                                      |
+| Validazione | **Zod**                                      | Valida sia gli input utente sia il file parametri, con un'unica fonte di verità dei tipi                                                                                                           |
+| Frontend    | **Next.js (App Router) + React**             | Static export per Pages _o_ runtime per Vercel, senza cambiare codice                                                                                                                              |
+| Styling     | **Tailwind CSS**                             | Velocità e coerenza                                                                                                                                                                                |
+| Componenti  | **shadcn/ui**                                | Componenti copiati nel repo (non una dipendenza opaca), accessibili, personalizzabili. Preferito a daisyUI perché il controllo del markup conta quando bisogna rendere leggibile una tabella densa |
+| Grafici     | **SVG scritto a mano** (nessuna libreria)    | Il waterfall sono ~10 rettangoli: una libreria di charting costerebbe peso e controllo senza risolvere nulla. Vedi [06](06-ux-design.md) §5                                                        |
+| Form        | **react-hook-form** + resolver Zod           | Stesso schema per form, API e motore                                                                                                                                                               |
+| Tema        | **next-themes**                              | Dark mode senza flash in SSR                                                                                                                                                                       |
+| Test        | **Vitest** + **fast-check** + **Playwright** | Unit, property-based e smoke UI                                                                                                                                                                    |
+| CI          | **GitHub Actions**                           | Type-check + test + build a ogni push. Un badge verde nel README è una dichiarazione di serietà                                                                                                    |
 
 ---
 
@@ -274,9 +278,9 @@ UI: sintesi ► waterfall ► tabella espandibile con formula e norma per ogni r
 
 ## 9. Rischi e mitigazioni
 
-| Rischio | Mitigazione |
-|---|---|
-| Parametro fiscale sbagliato → tutto sbagliato | `confidence` + `source` per parametro; test golden contro calcolatori di riferimento; punti aperti tracciati in 01 §7 |
-| Il progetto "sembra" generato da un tool | Documenti che precedono il codice, test che dimostrano comprensione, commenti che citano le norme, discontinuità normative implementate correttamente |
-| Over-engineering per un prototipo | Il confine è: astrazioni che servono a **testare** o a **rendere reversibile una scelta** (port/adapter, params come dato) restano; tutto il resto no. Niente database, niente auth, niente state management globale |
-| Errori di arrotondamento | Regola unica e documentata: calcoli in centesimi interi dove possibile, troncamento alla 4ª cifra per le formule art. 13 come prescritto, arrotondamento solo in presentazione |
+| Rischio                                       | Mitigazione                                                                                                                                                                                                          |
+| --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Parametro fiscale sbagliato → tutto sbagliato | `confidence` + `source` per parametro; test golden contro calcolatori di riferimento; punti aperti tracciati in 01 §7                                                                                                |
+| Il progetto "sembra" generato da un tool      | Documenti che precedono il codice, test che dimostrano comprensione, commenti che citano le norme, discontinuità normative implementate correttamente                                                                |
+| Over-engineering per un prototipo             | Il confine è: astrazioni che servono a **testare** o a **rendere reversibile una scelta** (port/adapter, params come dato) restano; tutto il resto no. Niente database, niente auth, niente state management globale |
+| Errori di arrotondamento                      | Regola unica e documentata: calcoli in centesimi interi dove possibile, troncamento alla 4ª cifra per le formule art. 13 come prescritto, arrotondamento solo in presentazione                                       |

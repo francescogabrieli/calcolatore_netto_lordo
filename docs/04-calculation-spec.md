@@ -12,23 +12,23 @@
 ```ts
 type CalculationInput = {
   // --- essenziali (sempre visibili in UI) ---
-  grossAnnualSalary: number;        // RAL, > 0
+  grossAnnualSalary: number; // RAL, > 0
   monthlyPayments: 12 | 13 | 14 | 15;
-  region: RegionCode;               // default 'lombardia'
-  municipality: MunicipalityCode;   // default 'milano'
+  region: RegionCode; // default 'lombardia'
+  municipality: MunicipalityCode; // default 'milano'
 
   // --- avanzati (sezione espandibile, tutti con default) ---
-  employmentDays: number;           // default 365
-  contractType: 'permanent' | 'fixed_term';   // default 'permanent'
-  isApprenticeship: boolean;        // default false
+  employmentDays: number; // default 365
+  contractType: 'permanent' | 'fixed_term'; // default 'permanent'
+  isApprenticeship: boolean; // default false
   dependents: {
-    spouse: boolean;                // default false
-    children21to30: number;         // default 0
+    spouse: boolean; // default false
+    children21to30: number; // default 0
     childrenSharePercent: 100 | 50; // default 100
-    otherDependents: number;        // default 0
+    otherDependents: number; // default 0
   };
-  taxFreeBenefits: number;          // welfare/fringe benefit, default 0
-  applyCuneoBenefit: boolean;       // default true
+  taxFreeBenefits: number; // welfare/fringe benefit, default 0
+  applyCuneoBenefit: boolean; // default true
 };
 ```
 
@@ -100,14 +100,14 @@ Progressione **per scaglioni** (non aliquota unica sul totale):
 IRPEF_LORDA = Σ_scaglioni  ( porzione_di_reddito_nello_scaglione × aliquota )
 ```
 
-| Scaglione | Aliquota |
-|---|---|
-| 0 – 28.000 | 23% |
-| 28.001 – 50.000 | 33% |
-| oltre 50.000 | 43% |
+| Scaglione       | Aliquota |
+| --------------- | -------- |
+| 0 – 28.000      | 23%      |
+| 28.001 – 50.000 | 33%      |
+| oltre 50.000    | 43%      |
 
 Il motore restituisce anche il dettaglio per scaglione (`BracketDetail[]`), così la UI può
-mostrare *quanto* è stato pagato in ciascuna fascia — informazione che nessun calcolatore
+mostrare _quanto_ è stato pagato in ciascuna fascia — informazione che nessun calcolatore
 concorrente espone e che rende intuitiva la progressività.
 
 **Riferimento**: art. 11 TUIR, come modificato da L. 199/2025 art. 1 co. 3.
@@ -149,6 +149,7 @@ DETRAZIONE_LAVORO = D_ragguagliata
 **Riferimenti**: art. 13 co. 1 e 1-bis TUIR; D.Lgs. 216/2023; Circ. AdE 4/2022 (non-ragguaglio dei 65 €).
 
 > **Tre trappole implementative**, tutte da testare esplicitamente:
+>
 > 1. **troncamento**, non arrotondamento, alla quarta cifra decimale;
 > 2. i 65 € **non** si rapportano ai giorni;
 > 3. a R = 50.000,01 la detrazione è **0 secco**: la discontinuità è nella norma e va riprodotta.
@@ -301,12 +302,12 @@ Entrambe etichettate come **stime** e chiaramente separate dal calcolo del netto
 
 ## 11. Regole di arrotondamento
 
-| Momento | Regola |
-|---|---|
-| Formule art. 13 | **troncamento** alla 4ª cifra decimale (prescritto dalla norma) |
-| Calcoli intermedi | full precision, nessun arrotondamento anticipato |
-| Confronti con soglie | sul valore non arrotondato |
-| Presentazione | arrotondamento a 2 decimali, formato `it-IT` con `Intl.NumberFormat` |
+| Momento              | Regola                                                               |
+| -------------------- | -------------------------------------------------------------------- |
+| Formule art. 13      | **troncamento** alla 4ª cifra decimale (prescritto dalla norma)      |
+| Calcoli intermedi    | full precision, nessun arrotondamento anticipato                     |
+| Confronti con soglie | sul valore non arrotondato                                           |
+| Presentazione        | arrotondamento a 2 decimali, formato `it-IT` con `Intl.NumberFormat` |
 
 Regola generale: **arrotondare una volta sola, alla fine**. Arrotondamenti intermedi propagano
 errori e rendono impossibile riconciliare i totali con la somma delle righe.

@@ -1,4 +1,4 @@
-import params2026 from '../params/2026.json' with { type: 'json' };
+import params2026 from '../params/2026.json';
 import { taxParamsSchema, type TaxParams } from './schema.js';
 
 /**

@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "calcolatore-web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--workspace=@cnl/web"],
+      "port": 3210
+    },
+    {
+      "name": "calcolatore-web-prod",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "start", "--workspace=@cnl/web", "--", "-p", "3211"],
+      "port": 3211
+    }
+  ]
+}

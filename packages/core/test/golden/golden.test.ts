@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { calculateNet } from '../../src/calculate.js';
 import { getTaxParams } from '../../src/params.js';
 import { standardInput } from '../helpers.js';
-import reference from './reference-calcolastipendionetto.json' with { type: 'json' };
+import reference from './reference-calcolastipendionetto.json';
 
 /**
  * Validazione esterna (docs/05 §4).
@@ -30,7 +30,9 @@ describe('golden — validazione esterna', () => {
   describe('reddito imponibile: coincidenza esatta sotto la prima fascia', () => {
     for (const c of cases.filter((x) => x.ral <= additionalRateThreshold)) {
       it(`RAL ${c.ral}`, () => {
-        const step = calculateNet(standardInput(c.ral)).steps.find((s) => s.id === 'taxable_income')!;
+        const step = calculateNet(standardInput(c.ral)).steps.find(
+          (s) => s.id === 'taxable_income',
+        )!;
         expect(Math.round(step.amount)).toBe(c.noBonus.imponibile);
       });
     }

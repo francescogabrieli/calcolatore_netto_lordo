@@ -1,0 +1,258 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens — ispirati a DESIGN.md (x.ai): canvas quasi-nero, pillole outline,
+ * eyebrow mono tracciate, hairline al posto delle ombre. Il colore semantico resta
+ * riservato ai numeri (docs/06 §6): verde = denaro che resta, rosso = che se ne va.
+ */
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+/* Default: canvas quasi-nero. x.ai è dark-canvas only — qui resta la base,
+   con .light come variante analoga per chi preferisce il tema chiaro. */
+:root,
+.dark {
+  --bg: #0a0a0a;
+  --surface: #191919;
+  --surface-muted: #1a1c20;
+  --border: #212327;
+  --text: #ffffff;
+  --text-body: #dadbdf;
+  --text-muted: #85888e;
+  --accent: #a78bfa;
+  --accent-strong: #c4b5fd;
+  --accent-soft: #7c3aed26;
+  --positive: #34d399;
+  --positive-soft: #34d3991a;
+  --negative: #fb7185;
+  --negative-soft: #fb71851a;
+  --attention: #fbbf24;
+  --attention-soft: #fbbf241a;
+}
+
+.light {
+  --bg: #ffffff;
+  --surface: #fafafa;
+  --surface-muted: #f4f4f5;
+  --border: #e4e4e7;
+  --text: #0a0a0a;
+  --text-body: #3f3f46;
+  --text-muted: #71717a;
+  --accent: #7c3aed;
+  --accent-strong: #6d28d9;
+  --accent-soft: #7c3aed1a;
+  --positive: #059669;
+  --positive-soft: #05966914;
+  --negative: #e11d48;
+  --negative-soft: #e11d4814;
+  --attention: #d97706;
+  --attention-soft: #d9770614;
+}
+
+@layer base {
+  body {
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    transition:
+      background-color 200ms ease,
+      color 200ms ease;
+  }
+
+  /* Cifre a larghezza fissa: senza, una colonna di importi non si allinea
+     e diventa impossibile da confrontare a colpo d'occhio. */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+
+  /* Un anello di focus unico per tutto il sistema. `:focus-visible` e non
+     `:focus`: appare a chi naviga da tastiera, non a ogni click del mouse. */
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--text);
+  }
+}
+
+/* Alone dietro il titolo: l'unica sorgente di luce della scena, appena percepibile.
+   Vive dietro al contenuto e non intercetta il puntatore. */
+.hero-glow {
+  position: absolute;
+  inset-inline: 0;
+  top: 4rem;
+  height: 44rem;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(
+    60rem 30rem at 22% 22%,
+    color-mix(in oklch, var(--accent) 15%, transparent),
+    transparent 72%
+  );
+}
+
+/* Headline: peso 400, tracking negativo aggressivo alle taglie grandi —
+   la precisione tipografica è la voce del brand, non il grassetto. */
+.text-display {
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+}
+
+/* Eyebrow: mono maiuscolo tracciato, l'etichetta che introduce ogni sezione. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+/* Pillola outline: unica forma interattiva del sistema. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease,
+    transform 150ms ease,
+    opacity 200ms ease;
+}
+
+.pill:hover {
+  border-color: color-mix(in oklch, var(--text) 40%, var(--border));
+  background: var(--surface-muted);
+}
+
+.pill:active {
+  transform: scale(0.97);
+}
+
+/* Pillola piena: l'unica eccezione filled del sistema, riservata alla CTA. */
+.pill-primary {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+.pill-primary:hover {
+  background: var(--text);
+  opacity: 0.88;
+}
+
+.pill-active {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+/* Reveal: ingresso in scena al primo passaggio in viewport. */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 560ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 560ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* .reveal-visible la mette JS: senza scripting la pagina resterebbe invisibile,
+   quindi la scena parte gia' in posizione. */
+@media (scripting: none) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-in {
+  animation: fade-up 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-in-row {
+  animation: fade-up 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Accordion: altezza animata via grid-template-rows, senza misurare nulla in JS. */
+.accordion {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 340ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.accordion-open {
+  grid-template-rows: 1fr;
+}
+
+.accordion > div {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Riepilogo nell'header: entra quando la sintesi esce di scena verso l'alto. */
+.header-summary {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity 260ms ease,
+    transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.header-summary-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Icona tema: dissolvenza incrociata sole/luna. */
+.theme-icon {
+  transition:
+    opacity 220ms ease,
+    transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

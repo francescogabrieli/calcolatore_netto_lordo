@@ -39,6 +39,27 @@ export const calculationInputSchema = z.object({
 export type CalculationInput = z.infer<typeof calculationInputSchema>;
 export type CalculationInputRaw = z.input<typeof calculationInputSchema>;
 
+/**
+ * Campi comuni a calcolo diretto e inverso: solo l'importo (RAL o netto target)
+ * cambia. Estratti perché la UI pilota entrambe le direzioni con un solo form.
+ */
+export const sharedCalculationFieldsSchema = calculationInputSchema.omit({
+  grossAnnualSalary: true,
+});
+export type SharedCalculationFields = z.infer<typeof sharedCalculationFieldsSchema>;
+export type SharedCalculationFieldsRaw = z.input<typeof sharedCalculationFieldsSchema>;
+
+/** Calcolo inverso: stessi campi, RAL sostituita dal netto annuo desiderato. */
+export const reverseCalculationInputSchema = sharedCalculationFieldsSchema.extend({
+  targetNetAnnual: z
+    .number({ invalid_type_error: 'Inserisci un importo valido' })
+    .positive('Il netto desiderato deve essere maggiore di zero')
+    .max(5_000_000, 'Importo troppo elevato'),
+});
+
+export type ReverseCalculationInput = z.infer<typeof reverseCalculationInputSchema>;
+export type ReverseCalculationInputRaw = z.input<typeof reverseCalculationInputSchema>;
+
 // ---------------------------------------------------------------- parametri
 
 const confidenceSchema = z.enum(['high', 'medium', 'low']);
@@ -116,9 +137,19 @@ export const taxParamsSchema = z.object({
 
   familyDeductions: z.object({
     spouse: z.object({
-      band1: z.object({ upTo: z.number(), base: z.number(), subtract: z.number(), over: z.number() }),
+      band1: z.object({
+        upTo: z.number(),
+        base: z.number(),
+        subtract: z.number(),
+        over: z.number(),
+      }),
       band2: z.object({ upTo: z.number(), amount: z.number() }),
-      band3: z.object({ upTo: z.number(), base: z.number(), ceiling: z.number(), span: z.number() }),
+      band3: z.object({
+        upTo: z.number(),
+        base: z.number(),
+        ceiling: z.number(),
+        span: z.number(),
+      }),
       increments: z.array(z.object({ from: z.number(), to: z.number(), amount: z.number() })),
     }),
     child21to30: z.object({
