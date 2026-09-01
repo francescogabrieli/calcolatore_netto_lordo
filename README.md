@@ -1,4 +1,4 @@
-# Calcolatore Netto/Lordo — Jet HR
+# Calcolatore Netto/Lordo
 
 Prototipo che, data una **retribuzione annua lorda (RAL)**, calcola il **netto annuo e mensile**
 e mostra **ogni voce trattenuta**, con la formula applicata e il riferimento normativo.
@@ -7,6 +7,8 @@ e mostra **ogni voce trattenuta**, con la formula applicata e il riferimento nor
 
 > ✅ Ricerca di dominio e documentazione · ✅ Motore di calcolo (84 test verdi)
 > · ✅ Interfaccia web · ✅ Smoke test Playwright (30, desktop e mobile) · ✅ Pronto al deploy su Vercel
+
+![Schermata del calcolatore: RAL 30.000 € → netto 23.426 €, con trattenute, aliquota effettiva e marginale](docs/media/screenshot.png)
 
 ---
 
